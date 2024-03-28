@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.analog {
+    width: 500px;
+    height: 500px;
+    border: 20px solid #00818a;
+    border-radius: 50%;
+    margin: 5rem auto;
+    position: relative;
+}
+
+.point {
+    width: 27px;
+    height: 27px;
+    background-color: #283149;
+    border-radius: 50%;
+    position: absolute;
+    top: 240px;
+    left: 240px;
+    z-index: 6;
+}
+
+.analog span {
+    position: absolute;
+    inset: 30px;
+    transform: rotate(calc(30deg * var(--h)));
+    text-align: center;
+}
+
+.analog span b {
+    font-size: 2rem;
+    font-weight: 600;
+    display: inline-block; /* Check this out more to figure out why this worked */
+    transform: rotate(calc(-30deg * var(--h)));
+
+}
+
+.analog .hand {
+    position: absolute;
+    bottom: 244px;
+    left: 248px;
+    transform: translateX(-50%);
+    transform-origin: bottom;
+}
+
+.second {
+    height: 35%;
+    width: 5px;
+    background-color: coral;
+    z-index: 5;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.minute {
+    height: 40%;
+    width: 10px;
+    background-color: #00818a;
+    z-index: 4;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.hour {
+    height: 28%;
+    width: 15px;
+    background-color: #00818a;
+    z-index: 3;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    
+}
