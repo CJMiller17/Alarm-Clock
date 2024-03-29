@@ -1,5 +1,9 @@
 /* This function runs the analog clock. */
+const hh = document.querySelector("select[name='hourInput']").value;
+const mm = document.querySelector("select[name='minuteInput']").value;
+const ampm = document.querySelector("select[name='ampm']").value;
 
+alarmTime = `${hh}:${mm}`;
 setInterval(
     function() {
         date = new Date();
@@ -25,7 +29,7 @@ setInterval(function () {
 /* This will push times into the alarm array and display them */
 
 let setAlarms = [];
-
+//console.log("Value of array:", setAlarms)
 function addAlarm() {
     if (setAlarms.length < 5) {
         const hh = document.querySelector("select[name='hourInput']").value;
@@ -34,49 +38,29 @@ function addAlarm() {
         
         let alarm = `${hh}:${mm} ${ampm}`;
         setAlarms.push(alarm);
-        setAlarmTime();
+
+        alarmTime = `${hh}:${mm}`;
         displayAlarms();
+        sound();
     } else {
         alert("You can only set up to 5 alarms");
     }
 }
 
-let isAlarmPlaying = false;
-let alarmTime = null;
-
 function sound(isChecked) {
     const currentTime = new Date();
-
-    if (alarmTime && currentTime.getHours() === alarmTime.getHours() && currentTime.getMinutes() === alarmTime.getMinutes()) {
-        if (document.querySelector("input[type='checkbox']").checked) {
-            if (!isAlarmPlaying) {
+    console.log('Alarm being checked', currentTime)
+    console.log('currentTime: ', typeof(currentTime), currentTime)
+    if (alarmTime == currentTime) {
                 const goingOff = new Audio("alarm.mp3");
                 goingOff.loop = true;
                 goingOff.play();
                 console.log("Before alert");
                 alert("Wake Up Beautiful");
                 console.log("After Alert");
-                isAlarmPlaying = true;
             }
-        }
-    } else {
-        isAlarmPlaying = false;
-        alarmTime = null;
+        
     }
-
-}
-
-function setAlarmTime() {
-    const hh = document.querySelector("select[name='hourInput']").value;
-    const mm = document.querySelector("select[name='minuteInput']").value;
-    const ampm = document.querySelector("select[name='ampm']").value;
-
-    alarmTime = new Date();
-    alarmTime.setHours(hh);
-    alarmTime.setMinutes(mm);
-    alarmTime.setSeconds(0);
-    sound(true);
-}
 
 function displayAlarms() {
     const activeAlarm = document.querySelector(".alarms");
@@ -100,9 +84,6 @@ function displayAlarms() {
         
         toggleLabel.appendChild(toggleInput);
         toggleLabel.appendChild(toggleSpan);
-        // toggleInput.addEventListener("change", function () {
-        //     sound(toggleInput.checked);
-        // });
         alarmElement.appendChild(toggleLabel);
 
         const deleteBtn = document.createElement("button");
