@@ -19,7 +19,7 @@ setInterval(function () {
     const second = time.getSeconds();
     const minute = time.getMinutes();
     const hour = time.getHours();
-    document.querySelector(".display").textContent = hour + ":" + minute + ":" + second;
+    document.querySelector(".display").textContent = `${hour}:${minute}:${second}`;
 }, 1000);
 
 /* This will push times into the alarm array and display them */
@@ -32,7 +32,7 @@ function addAlarm() {
         const mm = document.querySelector("select[name='minuteInput']").value;
         const ampm = document.querySelector("select[name='ampm']").value;
         
-        let alarm = hh + ":" + mm + " " + ampm;
+        let alarm = `${hh}:${mm} ${ampm}`;
         setAlarms.push(alarm);
         displayAlarms();
     } else {
@@ -49,12 +49,22 @@ function displayAlarms() {
         alarmElement.textContent = setAlarms[i];
         activeAlarm.appendChild(alarmElement);
 
-        const toggle = document.createElement("button")
-        toggle.textContent = "ON/OFF"
-        toggle.addEventListener("click", function () {
-            toggleAlarm(i);
+        const toggleLabel = document.createElement("label");
+        toggleLabel.classList.add("switch");
+        
+        const toggleInput = document.createElement("input");
+        toggleInput.type = "checkbox";
+        toggleInput.checked = true; //default state
+                
+        const toggleSpan = document.createElement("span");
+        toggleSpan.classList.add("slider", "round");
+        
+        toggleLabel.appendChild(toggleInput);
+        toggleLabel.appendChild(toggleSpan);
+        toggleInput.addEventListener("change", function () {
+            sound(toggleInput.checked);
         });
-        alarmElement.appendChild(toggle);
+        alarmElement.appendChild(toggleLabel);
 
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "delete"
@@ -64,14 +74,19 @@ function displayAlarms() {
         alarmElement.appendChild(deleteBtn);
     };
 }
-function toggle(index) {
-    //Toggle the alarm some how
-    console.log("Dear God, help me")
+function sound(isChecked) {
+    const goingOff = new Audio("alarm.mp3");
+    if (isChecked) {
+        goingOff.loop = true;
+        goingOff.play();
+        alert("Wake Up Beautiful!")
+    } else {
+        goingOff.pause();
+        goingOff.currentTime = 0;
+    }
 }
 
 function deleteAlarm(index) {
-    //Delete the alarm some how
-    console.log("Go away!")
     setAlarms.splice(index, 1);
     displayAlarms();
 }
