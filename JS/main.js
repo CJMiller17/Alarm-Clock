@@ -34,11 +34,50 @@ function addAlarm() {
         
         let alarm = `${hh}:${mm} ${ampm}`;
         setAlarms.push(alarm);
+        setAlarmTime();
         displayAlarms();
     } else {
         alert("You can only set up to 5 alarms");
     }
 }
+
+let isAlarmPlaying = false;
+let alarmTime = null;
+
+function sound(isChecked) {
+    const currentTime = new Date();
+
+    if (alarmTime && currentTime.getHours() === alarmTime.getHours() && currentTime.getMinutes() === alarmTime.getMinutes()) {
+        if (document.querySelector("input[type='checkbox']").checked) {
+            if (!isAlarmPlaying) {
+                const goingOff = new Audio("alarm.mp3");
+                goingOff.loop = true;
+                goingOff.play();
+                console.log("Before alert");
+                alert("Wake Up Beautiful");
+                console.log("After Alert");
+                isAlarmPlaying = true;
+            }
+        }
+    } else {
+        isAlarmPlaying = false;
+        alarmTime = null;
+    }
+
+}
+
+function setAlarmTime() {
+    const hh = document.querySelector("select[name='hourInput']").value;
+    const mm = document.querySelector("select[name='minuteInput']").value;
+    const ampm = document.querySelector("select[name='ampm']").value;
+
+    alarmTime = new Date();
+    alarmTime.setHours(hh);
+    alarmTime.setMinutes(mm);
+    alarmTime.setSeconds(0);
+    sound(true);
+}
+
 function displayAlarms() {
     const activeAlarm = document.querySelector(".alarms");
     activeAlarm.innerHTML = ""; //prevent exponential adding of divs
@@ -61,9 +100,9 @@ function displayAlarms() {
         
         toggleLabel.appendChild(toggleInput);
         toggleLabel.appendChild(toggleSpan);
-        toggleInput.addEventListener("change", function () {
-            sound(toggleInput.checked);
-        });
+        // toggleInput.addEventListener("change", function () {
+        //     sound(toggleInput.checked);
+        // });
         alarmElement.appendChild(toggleLabel);
 
         const deleteBtn = document.createElement("button");
@@ -74,21 +113,11 @@ function displayAlarms() {
         alarmElement.appendChild(deleteBtn);
     };
 }
-function sound(isChecked) {
-    const goingOff = new Audio("alarm.mp3");
-    if (isChecked) {
-        goingOff.loop = true;
-        goingOff.play();
-        alert("Wake Up Beautiful!")
-    } else {
-        goingOff.pause();
-        goingOff.currentTime = 0;
-    }
-}
 
 function deleteAlarm(index) {
     setAlarms.splice(index, 1);
     displayAlarms();
 }
 // Attach event listener to the "Add Alarm" button
-document.getElementById("set").addEventListener("click", addAlarm);
+document.getElementById("set").addEventListener("click", addAlarm); //put this closer to the button itself
+setInterval(sound, 1000);
