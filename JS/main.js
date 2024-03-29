@@ -1,9 +1,12 @@
-/* This function runs the analog clock. */
+/* My attempt to get alarmTime in the global scope for us */
 const hh = document.querySelector("select[name='hourInput']").value;
 const mm = document.querySelector("select[name='minuteInput']").value;
 const ampm = document.querySelector("select[name='ampm']").value;
 
 alarmTime = `${hh}:${mm}`;
+console.log(alarmTime);
+
+/* This function runs the analog clock. */
 setInterval(
     function() {
         date = new Date();
@@ -29,7 +32,8 @@ setInterval(function () {
 /* This will push times into the alarm array and display them */
 
 let setAlarms = [];
-//console.log("Value of array:", setAlarms)
+
+/* This adds alarms to the div */
 function addAlarm() {
     if (setAlarms.length < 5) {
         const hh = document.querySelector("select[name='hourInput']").value;
@@ -39,34 +43,32 @@ function addAlarm() {
         let alarm = `${hh}:${mm} ${ampm}`;
         setAlarms.push(alarm);
 
-        alarmTime = `${hh}:${mm}`;
         displayAlarms();
         sound();
     } else {
+        /* Limits the array to 5 */
         alert("You can only set up to 5 alarms");
     }
 }
-
+/* This section doesn't work */
 function sound(isChecked) {
     const currentTime = new Date();
-    console.log('Alarm being checked', currentTime)
-    console.log('currentTime: ', typeof(currentTime), currentTime)
     if (alarmTime == currentTime) {
-                const goingOff = new Audio("alarm.mp3");
-                goingOff.loop = true;
-                goingOff.play();
-                console.log("Before alert");
-                alert("Wake Up Beautiful");
-                console.log("After Alert");
-            }
-        
+        alert("Wake Up!");
+        const goingOff = new Audio("alarm.mp3");
+        goingOff.loop = true;
+        goingOff.play();
+                
+                
     }
+        
+}
 
 function displayAlarms() {
     const activeAlarm = document.querySelector(".alarms");
-    activeAlarm.innerHTML = ""; //prevent exponential adding of divs
+    activeAlarm.innerHTML = ""; /* prevent exponential adding of divs */
     
-    // Loop through the array and display each alarm
+    /* Loop through the array and display each alarm */
     for (let i = 0; i < setAlarms.length; i++) {
         const alarmElement = document.createElement("div");
         alarmElement.textContent = setAlarms[i];
@@ -99,6 +101,6 @@ function deleteAlarm(index) {
     setAlarms.splice(index, 1);
     displayAlarms();
 }
-// Attach event listener to the "Add Alarm" button
-document.getElementById("set").addEventListener("click", addAlarm); //put this closer to the button itself
+/* Attach event listener to the "Add Alarm" button */
+document.getElementById("set").addEventListener("click", addAlarm);
 setInterval(sound, 1000);
