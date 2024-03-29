@@ -27,26 +27,53 @@ setInterval(function () {
 let setAlarms = [];
 
 function addAlarm() {
-    const hh = document.querySelector("select[name='hourInput']").value;
-    const mm = document.querySelector("select[name='minuteInput']").value;
-    const ampm = document.querySelector("select[name='ampm']").value;
-    
-    let alarm = hh + ":" + mm + " " + ampm;
-    setAlarms.push(alarm);
-    displayAlarms();
+    if (setAlarms.length < 5) {
+        const hh = document.querySelector("select[name='hourInput']").value;
+        const mm = document.querySelector("select[name='minuteInput']").value;
+        const ampm = document.querySelector("select[name='ampm']").value;
+        
+        let alarm = hh + ":" + mm + " " + ampm;
+        setAlarms.push(alarm);
+        displayAlarms();
+    } else {
+        alert("You can only set up to 5 alarms");
+    }
 }
-
 function displayAlarms() {
-    const alarmsContainer = document.querySelector(".alarms");
-    alarmsContainer.innerHTML = ""; // Clear previous content
+    const activeAlarm = document.querySelector(".alarms");
+    activeAlarm.innerHTML = ""; //prevent exponential adding of divs
     
     // Loop through the array and display each alarm
-    setAlarms.forEach(function(alarm, index) {
+    for (let i = 0; i < setAlarms.length; i++) {
         const alarmElement = document.createElement("div");
-        alarmElement.textContent = "Alarm " + (index + 1) + ": " + alarm;
-        alarmsContainer.appendChild(alarmElement);
-    });
+        alarmElement.textContent = setAlarms[i];
+        activeAlarm.appendChild(alarmElement);
+
+        const toggle = document.createElement("button")
+        toggle.textContent = "ON/OFF"
+        toggle.addEventListener("click", function () {
+            toggleAlarm(i);
+        });
+        alarmElement.appendChild(toggle);
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "delete"
+        deleteBtn.addEventListener("click", function () {
+            deleteAlarm(i);
+        });
+        alarmElement.appendChild(deleteBtn);
+    };
+}
+function toggle(index) {
+    //Toggle the alarm some how
+    console.log("Dear God, help me")
 }
 
+function deleteAlarm(index) {
+    //Delete the alarm some how
+    console.log("Go away!")
+    setAlarms.splice(index, 1);
+    displayAlarms();
+}
 // Attach event listener to the "Add Alarm" button
 document.getElementById("set").addEventListener("click", addAlarm);
