@@ -1,13 +1,13 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
-
+/* This begins the analog clock styles */
 .analog {
     width: 500px;
     height: 500px;
     border: 20px solid #00818a;
     border-radius: 50%;
-    margin: 5rem auto;
+    margin: 2rem auto;
     position: relative;
 }
 
@@ -71,4 +71,47 @@ body {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     
+}
+/* This begins the digital clock styles */
+.digital {
+    background-color: #00818a;
+    width: 500px;
+    padding: 3.12em 5em;
+    position: relative;
+    transform: translateX(-50%);
+    left: 50%;
+    border-radius: .5em;
+    bottom: 1em;
+}
+
+.display {
+    font-size: 2.5rem;
+    text-align: center;
+    color: white;
+    font-family: monospace;    
+}
+
+.inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .7rem;
+    margin-top: 2rem;
+}
+
+.inputs select {
+    width: 4rem;
+    font-size: 1.3rem;
+    border: 1.5px solid coral;
+    border-radius: 5px;
+    padding: .1em;
+}
+
+#set {
+    width: 5rem;
+    font-size: .9rem;
+    border: 1.5px solid coral;
+    border-radius: 20px;
+    padding: .1em;
+    background-color: ;
 }

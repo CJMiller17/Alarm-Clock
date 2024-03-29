@@ -8,7 +8,7 @@ setInterval(
         date = new Date();
         sec = date.getSeconds() * 6;
         min = date.getMinutes() * 6;
-        hor = date.getHours() * 30;
+        hor = date.getHours() * 30 + Math.round(minute /12);
         document.getElementById("second-hand").style.transform = "rotate(" + sec + "deg)"
         document.getElementById("minute-hand").style.transform = "rotate(" + min + "deg)"
         document.getElementById("hour-hand").style.transform = "rotate(" + hor + "deg)";
