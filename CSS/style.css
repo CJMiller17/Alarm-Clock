@@ -85,33 +85,39 @@ body {
 }
 
 .display {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    font-weight: 900;
     text-align: center;
     color: white;
-    font-family: monospace;    
+    -webkit-text-stroke: 2px coral;
+    font-family: monospace;   
 }
 
 .inputs {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .7rem;
+    gap: 1rem;
     margin-top: 2rem;
 }
 
 .inputs select {
     width: 4rem;
     font-size: 1.3rem;
-    border: 1.5px solid coral;
+    border: 2px solid coral;
     border-radius: 5px;
     padding: .1em;
 }
 
 #set {
-    width: 5rem;
-    font-size: .9rem;
-    border: 1.5px solid coral;
+    width: 10rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: white;
+    border: 2px solid coral;
     border-radius: 20px;
-    padding: .1em;
-    background-color: ;
+    background-color: #05d6e5a1;
+    padding: .5rem 1rem;
+    display: block;
+    margin: 1.5rem auto 0 auto;
 }
