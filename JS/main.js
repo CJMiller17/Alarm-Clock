@@ -3,7 +3,7 @@ const hh = document.querySelector("select[name='hourInput']").value;
 const mm = document.querySelector("select[name='minuteInput']").value;
 const ampm = document.querySelector("select[name='ampm']").value;
 
-alarmTime = `${hh}:${mm}`;
+const alarmTime = `${hh}:${mm}`;
 console.log(alarmTime);
 
 /* This function runs the analog clock. */
